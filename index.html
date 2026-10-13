@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aurea Estates | Premium Real Estate</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Swiper Slider -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['"Playfair Display"', 'serif']
+          },
+          colors: {
+            brand: {
+              50: '#f5f8f6',
+              100: '#e6f0ea',
+              500: '#157f5f',
+              600: '#0f6a4f',
+              700: '#0b5340',
+              900: '#062b21'
+            },
+            gold: '#c9a227'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .hero-gradient {
+      background: linear-gradient(105deg, rgba(6,43,33,.92) 0%, rgba(6,43,33,.72) 45%, rgba(6,43,33,.25) 100%);
+    }
+    .glass {
+      backdrop-filter: blur(18px);
+      background: rgba(255,255,255,.72);
+    }
+    .card-hover {
+      transition: transform .5s cubic-bezier(.22,1,.36,1), box-shadow .5s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 70px -25px rgba(6,43,33,.45);
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity .8s ease, transform .8s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .swiper-pagination-bullet {
+      background: #fff;
+      opacity: .45;
+    }
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+      width: 28px;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+
+<body class="bg-brand-50 font-sans text-slate-800 antialiased">
+
+  <!-- Header -->
+  <header id="header" class="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="flex items-center justify-between py-5">
+        <a href="#home" class="flex items-center gap-3">
+          <div class="grid h-11 w-11 place-items-center rounded-xl bg-brand-600 text-white shadow-lg">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5 12 3l9 7.5M5 9.5V21h14V9.5" />
+            </svg>
+          </div>
+          <div>
+            <p class="font-display text-xl font-bold leading-none text-white transition-colors">Aurea Estates</p>
+            <p class="text-[11px] uppercase tracking-[0.22em] text-white/70 transition-colors">Luxury Living</p>
+          </div>
+        </a>
+
+        <nav class="hidden items-center gap-8 lg:flex">
+          <a href="#home" class="nav-link text-sm font-medium text-white/90 transition hover:text-white">Home</a>
+          <a href="#about" class="nav-link text-sm font-medium text-white/90 transition hover:text-white">About</a>
+          <a href="#services" class="nav-link text-sm font-medium text-white/90 transition hover:text-white">Services</a>
+          <a href="#projects" class="nav-link text-sm font-medium text-white/90 transition hover:text-white">Projects</a>
+          <a href="#blog" class="nav-link text-sm font-medium text-white/90 transition hover:text-white">Blog</a>
+          <a href="#contact" class="nav-link text-sm font-medium text-white/90 transition hover:text-white">Contact</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a href="#contact" class="hidden rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand-700 shadow-lg transition hover:bg-brand-100 md:inline-flex">
+            Book a Visit
+          </a>
+          <button id="menuBtn" class="grid h-11 w-11 place-items-center rounded-xl bg-white/15 text-white lg:hidden">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div id="mobileMenu" class="hidden border-t border-white/10 bg-brand-900/95 px-6 pb-7 pt-4 lg:hidden">
+      <div class="flex flex-col gap-1">
+        <a href="#home" class="mobile-link rounded-xl px-4 py-3 text-white/90 hover:bg-white/10">Home</a>
+        <a href="#about" class="mobile-link rounded-xl px-4 py-3 text-white/90 hover:bg-white/10">About</a>
+        <a href="#services" class="mobile-link rounded-xl px-4 py-3 text-white/90 hover:bg-white/10">Services</a>
+        <a href="#projects" class="mobile-link rounded-xl px-4 py-3 text-white/90 hover:bg-white/10">Projects</a>
+        <a href="#blog" class="mobile-link rounded-xl px-4 py-3 text-white/90 hover:bg-white/10">Blog</a>
+        <a href="#contact" class="mobile-link rounded-xl px-4 py-3 text-white/90 hover:bg-white/10">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Home / Hero -->
+  <section id="home" class="relative min-h-screen">
+    <div class="swiper hero-slider h-screen">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide relative">
+          <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=80" class="h-full w-full object-cover" alt="Luxury villa">
+          <div class="hero-gradient absolute inset-0"></div>
+        </div>
+        <div class="swiper-slide relative">
+          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2000&q=80" class="h-full w-full object-cover" alt="Modern home">
+          <div class="hero-gradient absolute inset-0"></div>
+        </div>
+        <div class="swiper-slide relative">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2000&q=80" class="h-full w-full object-cover" alt="Premium apartment">
+          <div class="hero-gradient absolute inset-0"></div>
+        </div>
+      </div>
+      <div class="swiper-pagination !bottom-24"></div>
+    </div>
+
+    <div class="absolute inset-0 flex items-center">
+      <div class="mx-auto w-full max-w-7xl px-5 sm:px-8">
+        <div class="max-w-2xl">
+          <span class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white">
+            <span class="h-2 w-2 rounded-full bg-gold"></span>
+            Premium Properties
+          </span>
+
+          <h1 class="mt-6 font-display text-5xl font-bold leading-[1.05] text-white sm:text-6xl lg:text-7xl">
+            Find a home that <span class="text-gold">matches your ambition</span>
+          </h1>
+
+          <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
+            Discover exceptional residences, curated investments, and architectural landmarks across the city’s most desirable neighborhoods.
+          </p>
+
+          <div class="mt-9 flex flex-col gap-4 sm:flex-row">
+            <a href="#projects" class="rounded-full bg-brand-500 px-8 py-4 text-center text-sm font-semibold text-white shadow-xl transition hover:bg-brand-600">
+              Explore Properties
+            </a>
+            <a href="#contact" class="rounded-full border border-white/30 bg-white/10 px-8 py-4 text-center text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20">
+              Schedule Consultation
+            </a>
+          </div>
+
+          <div class="mt-14 grid max-w-lg grid-cols-3 gap-6 text-white">
+            <div>
+              <p class="font-display text-3xl font-bold">1,250+</p>
+              <p class="text-sm text-white/70">Properties Sold</p>
+            </div>
+            <div>
+              <p class="font-display text-3xl font-bold">98%</p>
+              <p class="text-sm text-white/70">Client Satisfaction</p>
+            </div>
+            <div>
+              <p class="font-display text-3xl font-bold">18+</p>
+              <p class="text-sm text-white/70">Years Experience</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="relative overflow-hidden py-24 lg:py-32">
+    <div class="mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:gap-20">
+      <div class="reveal relative">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80"
+             class="h-[430px] w-full rounded-[2rem] object-cover shadow-2xl sm:h-[520px]" alt="Real estate team">
+
+        <div class="absolute -bottom-8 -right-4 hidden rounded-3xl bg-brand-600 p-7 text-white shadow-2xl sm:block">
+          <p class="font-display text-4xl font-bold">15+</p>
+          <p class="mt-1 text-sm text-white/80">Cities Covered</p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <span class="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">About Aurea</span>
+        <h2 class="mt-4 font-display text-4xl font-bold leading-tight text-brand-900 sm:text-5xl">
+          Real estate built around people, not just properties
+        </h2>
+        <p class="mt-6 text-lg leading-relaxed text-slate-600">
+          We combine market intelligence, architectural taste, and personal service to help buyers, sellers, and investors make confident property decisions.
+        </p>
+
+        <div class="mt-10 grid gap-6 sm:grid-cols-2">
+          <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
+            <h3 class="font-semibold text-brand-900">Trusted Advisors</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Transparent guidance from first viewing to final handover.</p>
+          </div>
+          <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
+            <h3 class="font-semibold text-brand-900">Curated Portfolio</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Hand-selected homes, apartments, villas, and commercial spaces.</p>
+          </div>
+        </div>
+
+        <a href="#services" class="mt-10 inline-flex items-center gap-2 font-semibold text-brand-600 hover:text-brand-700">
+          Learn more about our services
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="bg-white py-24 lg:py-32">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <span class="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Our Services</span>
+        <h2 class="mt-4 font-display text-4xl font-bold text-brand-900 sm:text-5xl">Complete property solutions</h2>
+        <p class="mt-5 text-lg text-slate-600">From discovery to documentation, we support every stage of your real-estate journey.</p>
+      </div>
+
+      <div class="mt-16 grid gap-7 md:grid-cols-2 lg:grid-cols-3">
+        <div class="card-hover reveal rounded-3xl bg-brand-50 p-8 ring-1 ring-brand-100">
+          <div class="grid h-14 w-14 place-items-center rounded-2xl bg-brand-600 text-white">
+            <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5M5 9.5V21h14V9.5"/></svg>
+          </div>
+          <h3 class="mt-6 font-display text-2xl font-semibold text-brand-900">Property Buying</h3>
+          <p class="mt-3 leading-relaxed text-slate-600">Personalized property search, neighborhood insights, price analysis, and negotiation support.</p>
+        </div>
+
+        <div class="card-hover reveal rounded-3xl bg-brand-50 p-8 ring-1 ring-brand-100">
+          <div class="grid h-14 w-14 place-items-center rounded-2xl bg-brand-600 text-white">
+            <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v8m-4-4h8M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+          </div>
+          <h3 class="mt-6 font-display text-2xl font-semibold text-brand-900">Property Selling</h3>
+          <p class="mt-3 leading-relaxed text-slate-600">Professional valuation, staging advice, marketing, and access to qualified buyers.</p>
+        </div>
+
+        <div class="card-hover reveal rounded-3xl bg-brand-50 p-8 ring-1 ring-brand-100">
+          <div class="grid h-14 w-14 place-items-center rounded-2xl bg-brand-600 text-white">
+            <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3v18h18M7 15l4-5 3 3 5-7"/></svg>
+          </div>
+          <h3 class="mt-6 font-display text-2xl font-semibold text-brand-900">Investment Advisory</h3>
+          <p class="mt-3 leading-relaxed text-slate-600">Data-led guidance for rental yields, appreciation potential, and portfolio diversification.</p>
+        </div>
+
+        <div class="card-hover reveal rounded-3xl bg-brand-50 p-8 ring-1 ring-brand-100">
+          <div class="grid h-14 w-14 place-items-center rounded-2xl bg-brand-600 text-white">
+            <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 21V8l8-5 8 5v13M9 21v-6h6v6"/></svg>
+          </div>
+          <h3 class="mt-6 font-display text-2xl font-semibold text-brand-900">Property Management</h3>
+          <p class="mt-3 leading-relaxed text-slate-600">Tenant coordination, maintenance, inspections, rent collection, and compliance support.</p>
+        </div>
+
+        <div class="card-hover reveal rounded-3xl bg-brand-50 p-8 ring-1 ring-brand-100">
+          <div class="grid h-14 w-14 place-items-center rounded-2xl bg-brand-600 text-white">
+            <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>
+          </div>
+          <h3 class="mt-6 font-display text-2xl font-semibold text-brand-900">Legal Assistance</h3>
+          <p class="mt-3 leading-relaxed text-slate-600">Documentation review, title verification, registration guidance, and transaction support.</p>
+        </div>
+
+        <div class="card-hover reveal rounded-3xl bg-brand-50 p-8 ring-1 ring-brand-100">
+          <div class="grid h-14 w-14 place-items-center rounded-2xl bg-brand-600 text-white">
+            <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10Z"/><circle cx="12" cy="11" r="2.5"/></svg>
+          </div>
+          <h3 class="mt-6 font-display text-2xl font-semibold text-brand-900">Home Tours</h3>
+          <p class="mt-3 leading-relaxed text-slate-600">Private viewings, virtual walkthroughs, and curated neighborhood tours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="py-24 lg:py-32">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="reveal flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <div class="max-w-xl">
+          <span class="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Featured Projects</span>
+          <h2 class="mt-4 font-display text-4xl font-bold text-brand-900 sm:text-5xl">Exceptional places to call home</h2>
+        </div>
+        <a href="#contact" class="rounded-full bg-brand-600 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-brand-700">
+          View All Listings
+        </a>
+      </div>
+
+      <div class="mt-14 swiper project-slider">
+        <div class="swiper-wrapper pb-16">
+
+          <div class="swiper-slide">
+            <article class="card-hover group overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-slate-100">
+              <div class="relative h-72 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" alt="Skyline Villa">
+                <span class="absolute left-5 top-5 rounded-full bg-white/90 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-brand-700">For Sale</span>
+              </div>
+              <div class="p-7">
+                <p class="text-sm font-semibold text-brand-600">Beverly Hills</p>
+                <h3 class="mt-2 font-display text-2xl font-semibold text-brand-900">Skyline Villa</h3>
+                <p class="mt-3 text-sm text-slate-600">5 Beds • 6 Baths • 6,200 sq ft</p>
+                <div class="mt-6 flex items-center justify-between border-t border-slate-100 pt-5">
+                  <p class="font-display text-2xl font-bold text-brand-700">$2.85M</p>
+                  <a href="#contact" class="rounded-full bg-brand-50 px-5 py-2.5 text-sm font-semibold text-brand-700 transition hover:bg-brand-100">Details</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="swiper-slide">
+            <article class="card-hover group overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-slate-100">
+              <div class="relative h-72 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" alt="The Palm Residence">
+                <span class="absolute left-5 top-5 rounded-full bg-white/90 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-brand-700">New</span>
+              </div>
+              <div class="p-7">
+                <p class="text-sm font-semibold text-brand-600">Miami Beach</p>
+                <h3 class="mt-2 font-display text-2xl font-semibold text-brand-900">The Palm Residence</h3>
+                <p class="mt-3 text-sm text-slate-600">4 Beds • 5 Baths • 4,800 sq ft</p>
+                <div class="mt-6 flex items-center justify-between border-t border-slate-100 pt-5">
+                  <p class="font-display text-2xl font-bold text-brand-700">$1.94M</p>
+                  <a href="#contact" class="rounded-full bg-brand-50 px-5 py-2.5 text-sm font-semibold text-brand-700 transition hover:bg-brand-100">Details</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="swiper-slide">
+            <article class="card-hover group overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-slate-100">
+              <div class="relative h-72 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" alt="Urban Loft">
+                <span class="absolute left-5 top-5 rounded-full bg-white/90 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-brand-700">For Rent</span>
+              </div>
+              <div class="p-7">
+                <p class="text-sm font-semibold text-brand-600">Downtown</p>
+                <h3 class="mt-2 font-display text-2xl font-semibold text-brand-900">The Urban Loft</h3>
+                <p class="mt-3 text-sm text-slate-600">2 Beds • 2 Baths • 1,650 sq ft</p>
+                <div class="mt-6 flex items-center justify-between border-t border-slate-100 pt-5">
+                  <p class="font-display text-2xl font-bold text-brand-700">$4,200/mo</p>
+                  <a href="#contact" class="rounded-full bg-brand-50 px-5 py-2.5 text-sm font-semibold text-brand-700 transition hover:bg-brand-100">Details</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="swiper-slide">
+            <article class="card-hover group overflow-hidden rounded-[2rem] bg-white shadow-sm ring-1 ring-slate-100">
+              <div class="relative h-72 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80" class="h-full w-full object-cover transition duration-700 group-hover:scale-110" alt="Garden Estate">
+                <span class="absolute left-5 top-5 rounded-full bg-white/90 px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-brand-700">Exclusive</span>
+              </div>
+              <div class="p-7">
+                <p class="text-sm font-semibold text-brand-600">Lakeview</p>
+                <h3 class="mt-2 font-display text-2xl font-semibold text-brand-900">Garden Estate</h3>
+                <p class="mt-3 text-sm text-slate-600">6 Beds • 7 Baths • 8,100 sq ft</p>
+                <div class="mt-6 flex items-center justify-between border-t border-slate-100 pt-5">
+                  <p class="font-display text-2xl font-bold text-brand-700">$4.10M</p>
+                  <a href="#contact" class="rounded-full bg-brand-50 px-5 py-2.5 text-sm font-semibold text-brand-700 transition hover:bg-brand-100">Details</a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  <section id="blog" class="bg-white py-24 lg:py-32">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="reveal mx-auto max-w-2xl text-center">
+        <span class="text-sm font-bold uppercase tracking-[0.25em] text-brand-600">Insights</span>
+        <h2 class="mt-4 font-display text-4xl font-bold text-brand-900 sm:text-5xl">From our real-estate blog</h2>
+      </div>
+
+      <div class="mt-16 grid gap-8 md:grid-cols-3">
+        <article class="card-hover reveal overflow-hidden rounded-3xl bg-brand-50 ring-1 ring-brand-100">
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1000&q=80" class="h-56 w-full object-cover" alt="Buying a home">
+          <div class="p-7">
+            <p class="text-xs font-bold uppercase tracking-widest text-brand-600">Buying Guide</p>
+            <h3 class="mt-3 font-display text-xl font-semibold text-brand-900">10 questions to ask before buying a home</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-600">Make a smarter purchase by evaluating location, resale value, hidden costs, and long-term suitability.</p>
+            <a href="#" class="mt-5 inline-block text-sm font-semibold text-brand-600 hover:text-brand-700">Read article →</a>
+          </div>
+        </article>
+
+        <article class="card-hover reveal overflow-hidden rounded-3xl bg-brand-50 ring-1 ring-brand-100">
+          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80" class="h-56 w-full object-cover" alt="Real estate investment">
+          <div class="p-7">
+            <p class="text-xs font-bold uppercase tracking-widest text-brand-600">Investment</p>
+            <h3 class="mt-3 font-display text-xl font-semibold text-brand-900">How to evaluate a rental property</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-600">Understand cash flow, occupancy trends, maintenance reserves, and neighborhood growth before investing.</p>
+            <a href="#" class="mt-5 inline-block text-sm font-semibold text-brand-600 hover:text-brand-700">Read article →</a>
+          </div>
+        </article>
+
+        <article class="card-hover reveal overflow-hidden rounded-3xl bg-brand-50 ring-1 ring-brand-100">
+          <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1000&q=80" class="h-56 w-full object-cover" alt="Interior design">
+          <div class="p-7">
+            <p class="text-xs font-bold uppercase tracking-widest text-brand-600">Interior</p>
+            <h3 class="mt-3 font-display text-xl font-semibold text-brand-900">Simple upgrades that increase home value</h3>
+            <p class="mt-3 text-sm leading-relaxed text-slate-600">Small design improvements can create a stronger first impression and improve perceived property value.</p>
+            <a href="#" class="mt-5 inline-block text-sm font-semibold text-brand-600 hover:text-brand-700">Read article →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="relative overflow-hidden bg-brand-900 py-24 text-white lg:py-32">
+    <div class="absolute -right-24 -top-24 h-96 w-96 rounded-full bg-brand-500/20 blur-3xl"></div>
+    <div class="absolute -bottom-32 -left-24 h-96 w-96 rounded-full bg-gold/10 blur-3xl"></div>
+
+    <div class="relative mx-auto grid max-w-7xl gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:gap-20">
+      <div class="reveal">
+        <span class="text-sm font-bold uppercase tracking-[0.25em] text-gold">Contact Us</span>
+        <h2 class="mt-4 font-display text-4xl font-bold sm:text-5xl">Let’s find your perfect property</h2>
+        <p class="mt-6 max-w-lg text-lg text-white/75">
+          Tell us what you’re looking for and our advisors will prepare a curated selection for you.
+        </p>
+
+        <div class="mt-12 space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white/10">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a7 7 0 1 1 14 0c0 5.5-7 10-7 10Z"/><circle cx="12" cy="11" r="2.5"/></svg>
+            </div>
+            <div>
+              <p class="font-semibold">Office</p>
+              <p class="text-white/70">128 Marina Boulevard, Suite 400</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white/10">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg>
+            </div>
+            <div>
+              <p class="font-semibold">Email</p>
+              <p class="text-white/70">hello@aureaestates.com</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-white/10">
+              <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a1 1 0 0 1-1 1A17 17 0 0 1 4 5a1 1 0 0 1 1-1Z"/></svg>
+            </div>
+            <div>
+              <p class="font-semibold">Phone</p>
+              <p class="text-white/70">+1 (555) 018-2299</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <form id="contactForm" class="glass rounded-[2rem] p-7 text-slate-800 shadow-2xl sm:p-9">
+          <h3 class="font-display text-2xl font-bold text-brand-900">Request a consultation</h3>
+
+          <div class="mt-7 grid gap-5 sm:grid-cols-2">
+            <div>
+              <label class="mb-2 block text-sm font-semibold text-slate-700">Full Name</label>
+              <input required type="text" placeholder="Jane Cooper"
+                class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-100" />
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-semibold text-slate-700">Phone</label>
+              <input required type="tel" placeholder="+1 555 000 0000"
+                class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-100" />
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <label class="mb-2 block text-sm font-semibold text-slate-700">Email</label>
+            <input required type="email" placeholder="you@email.com"
+              class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-100" />
+          </div>
+
+          <div class="mt-5">
+            <label class="mb-2 block text-sm font-semibold text-slate-700">I’m interested in</label>
+            <select class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-100">
+              <option>Buying a home</option>
+              <option>Selling a property</option>
+              <option>Rental investment</option>
+              <option>Property management</option>
+            </select>
+          </div>
+
+          <div class="mt-5">
+            <label class="mb-2 block text-sm font-semibold text-slate-700">Message</label>
+            <textarea rows="4" placeholder="Share your budget, preferred location, or questions..."
+              class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-100"></textarea>
+          </div>
+
+          <button type="submit"
+            class="mt-7 w-full rounded-xl bg-brand-600 px-6 py-4 font-semibold text-white transition hover:bg-brand-700">
+            Send Request
+          </button>
+
+          <p id="formMessage" class="mt-4 hidden rounded-xl bg-brand-100 px-4 py-3 text-center text-sm font-semibold text-brand-700">
+            Thank you! Your request has been received.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-brand-900 pb-10 pt-16 text-white/70">
+    <div class="mx-auto max-w-7xl px-5 sm:px-8">
+      <div class="grid gap-10 border-b border-white/10 pb-12 md:grid-cols-4">
+        <div>
+          <p class="font-display text-2xl font-bold text-white">Aurea Estates</p>
+          <p class="mt-4 max-w-xs text-sm leading-relaxed">Premium homes, investment properties, and personalized real-estate advisory.</p>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-white">Company</h4>
+          <ul class="mt-4 space-y-3 text-sm">
+            <li><a href="#about" class="hover:text-white">About</a></li>
+            <li><a href="#services" class="hover:text-white">Services</a></li>
+            <li><a href="#projects" class="hover:text-white">Projects</a></li>
+            <li><a href="#blog" class="hover:text-white">Blog</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-white">Support</h4>
+          <ul class="mt-4 space-y-3 text-sm">
+            <li><a href="#contact" class="hover:text-white">Contact</a></li>
+            <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-white">Terms</a></li>
+            <li><a href="#" class="hover:text-white">FAQs</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="font-semibold text-white">Newsletter</h4>
+          <p class="mt-4 text-sm">Get new listings and market insights.</p>
+          <form class="mt-5 flex overflow-hidden rounded-xl bg-white/10 p-1">
+            <input type="email" placeholder="Email address" class="w-full bg-transparent px-4 py-3 text-sm text-white placeholder-white/50 outline-none" />
+            <button class="rounded-lg bg-brand-500 px-5 text-sm font-semibold text-white transition hover:bg-brand-600">Join</button>
+          </form>
+        </div>
+      </div>
+
+      <p class="pt-8 text-center text-sm">© 2026 Aurea Estates. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Sticky header
+    const header = document.getElementById('header');
+
+    function updateHeader() {
+      if (window.scrollY > 40) {
+        header.classList.add('glass', 'shadow-lg');
+        header.querySelectorAll('.nav-link').forEach(link => {
+          link.classList.remove('text-white/90', 'hover:text-white');
+          link.classList.add('text-slate-700', 'hover:text-brand-700');
+        });
+        header.querySelector('.font-display').classList.remove('text-white');
+        header.querySelector('.font-display').classList.add('text-brand-900');
+      } else {
+        header.classList.remove('glass', 'shadow-lg');
+        header.querySelectorAll('.nav-link').forEach(link => {
+          link.classList.add('text-white/90', 'hover:text-white');
+          link.classList.remove('text-slate-700', 'hover:text-brand-700');
+        });
+        header.querySelector('.font-display').classList.add('text-white');
+        header.querySelector('.font-display').classList.remove('text-brand-900');
+      }
+    }
+
+    window.addEventListener('scroll', updateHeader);
+    updateHeader();
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Hero slider
+    new Swiper('.hero-slider', {
+      loop: true,
+      effect: 'fade',
+      speed: 1200,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: '.hero-slider .swiper-pagination',
+        clickable: true
+      }
+    });
+
+    // Projects slider
+    new Swiper('.project-slider', {
+      slidesPerView: 1,
+      spaceBetween: 28,
+      loop: true,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false
+      },
+      pagination: {
+        el: '.project-slider .swiper-pagination',
+        clickable: true
+      },
+      breakpoints: {
+        640: { slidesPerView: 1.2 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+        1280: { slidesPerView: 3.2 }
+      }
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      document.getElementById('formMessage').classList.remove('hidden');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
